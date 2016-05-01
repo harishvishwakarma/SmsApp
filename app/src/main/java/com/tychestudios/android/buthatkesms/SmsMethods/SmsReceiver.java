@@ -5,6 +5,7 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.telephony.SmsMessage;
@@ -62,5 +63,10 @@ public class SmsReceiver extends BroadcastReceiver {
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
         notificationManager.notify(0, notificationBuilder.build());
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences("myprefs",Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("refresh",true);
+        editor.apply();
     }
     }

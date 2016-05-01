@@ -2,7 +2,9 @@ package com.tychestudios.android.buthatkesms.activities;
 
 import android.app.Dialog;
 import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -46,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
     public static boolean checkInbox = true;
     LinkedHashMap<String, List<Message>> contactMessages;
     public ContactMessageAdapter customMessageAdapter;
-    String TAG = "BuyHatkeSMS";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +56,9 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        SharedPreferences sharedPreferences = getSharedPreferences("myprefs",Context.MODE_PRIVATE);
+        checkInbox = sharedPreferences.getBoolean("refresh",true);
+
         if(fab!=null) {
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override

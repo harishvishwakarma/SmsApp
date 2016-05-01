@@ -12,7 +12,10 @@ import com.tychestudios.android.buthatkesms.R;
 import com.tychestudios.android.buthatkesms.activities.SmsActivity;
 import com.tychestudios.android.buthatkesms.model.Message;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by Harish Vishwakarma on 4/30/2016.
@@ -62,6 +65,13 @@ public class MessagesAdapter extends BaseAdapter {
         if(holder.message==null) Log.d("MessagesAdapter","message object is null");
         Log.d("MessagesAdapter","Message is: "+messageList.get(position).getSmsBody());
         holder.message.setText(messageList.get(position).getSmsBody());
+        String tempdate = messageList.get(position).getTime().toString();
+        holder.date.setText(tempdate);
+        Date date = new Date(tempdate);
+        String date1 = new SimpleDateFormat("dd-MM-yyyy", Locale.UK).format(date);
+        holder.date.setText(date1);
+        String time = new SimpleDateFormat(("hh:mm:ss"),Locale.UK).format(date);
+        holder.time.setText(time);
         return rowView;
     }
 }

@@ -82,10 +82,12 @@ public class SmsActivity extends AppCompatActivity {
                     if(message.length()>160){
                         ArrayList<String> parts = smsManager.divideMessage(message);
                         smsManager.sendMultipartTextMessage(contact,null,parts,null,null);
+
                     }
                     else{
                         smsManager.sendTextMessage(contact,null,message,null,null);
                     }
+                    Toast.makeText(SmsActivity.this,"SMS Sent",Toast.LENGTH_SHORT).show();
 
                 }
             }
