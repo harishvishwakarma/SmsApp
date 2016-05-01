@@ -33,6 +33,7 @@ public class SmsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sms);
         try {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setWindowTitle(contact);
         }
         catch(Exception e){
             e.printStackTrace();

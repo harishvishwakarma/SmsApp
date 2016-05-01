@@ -2,6 +2,7 @@ package com.tychestudios.android.buthatkesms.activities;
 
 import android.app.Dialog;
 import android.app.SearchManager;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -35,7 +36,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -43,7 +44,9 @@ public class MainActivity extends AppCompatActivity {
     ListView contactMessageList;
     public static List<Message> smsList;
     public static boolean checkInbox = true;
+    LinkedHashMap<String, List<Message>> contactMessages;
     public ContactMessageAdapter customMessageAdapter;
+    String TAG = "BuyHatkeSMS";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,13 +54,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         if(fab!=null) {
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Dialog smsDialog = new Dialog(MainActivity.this);
+                    final Dialog smsDialog = new Dialog(MainActivity.this);
                     smsDialog.setContentView(R.layout.dialog);
                     smsDialog.setTitle("Write SMS");
 
@@ -101,9 +103,11 @@ public class MainActivity extends AppCompatActivity {
                                 if(message.length()>160){
                                     ArrayList<String> parts = smsManager.divideMessage(message);
                                     smsManager.sendMultipartTextMessage(number,null,parts,null,null);
+                                    smsDialog.dismiss();
                                 }
                                 else{
                                     smsManager.sendTextMessage(number,null,message,null,null);
+                                    smsDialog.dismiss();
                                 }
 
                             }
@@ -119,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
         if(checkInbox){
             smsList = readInbox();
         }
-        HashMap<String, List<Message>> contactMessages = new HashMap<>();
+        contactMessages = new LinkedHashMap<>();
 
         for(Message message: smsList){
             List<Message> lm = contactMessages.get(message.getSmsFrom());
@@ -175,6 +179,7 @@ public class MainActivity extends AppCompatActivity {
                 return m1.getTime().compareTo(m2.getTime());
             }
         });
+        Collections.reverse(smsList);
         return smsList;
     }
 
@@ -197,6 +202,8 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+
         return true;
     }
 
@@ -210,6 +217,13 @@ public class MainActivity extends AppCompatActivity {
 
         if (id == R.id.action_settings) {
             return true;
+        }
+
+        if(id == R.id.savetodrive){
+            Intent intent = new Intent(this,SaveToDrive.class);
+            startActivity(intent);
+
+
         }
 
         return super.onOptionsItemSelected(item);

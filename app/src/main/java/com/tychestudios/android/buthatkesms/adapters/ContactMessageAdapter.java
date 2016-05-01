@@ -18,7 +18,7 @@ import com.tychestudios.android.buthatkesms.activities.SmsActivity;
 import com.tychestudios.android.buthatkesms.model.Message;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -26,12 +26,12 @@ import java.util.List;
  */
 public class ContactMessageAdapter extends BaseAdapter implements Filterable {
     ArrayList<String> contactlist;
-    HashMap<String, List<Message>> contactMessages;
+    LinkedHashMap<String, List<Message>> contactMessages;
     Context context;
     int[] imageId;
     private static LayoutInflater inflater = null;
 
-    public ContactMessageAdapter(MainActivity mainActivity, ArrayList<String> contactlist, HashMap<String, List<Message>> contactMessages) {
+    public ContactMessageAdapter(MainActivity mainActivity, ArrayList<String> contactlist, LinkedHashMap<String, List<Message>> contactMessages) {
         // TODO Auto-generated constructor stub
         this.contactlist = contactlist;
         this.contactMessages = contactMessages;
