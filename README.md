@@ -10,5 +10,6 @@ Features:
   3. All messages are grouped according to the Sender.
   4. Message are sorted accoring to their arrival.
   5. Floating Action Button on home screen for quick SMS sending.
+  6. Writing area in side a contact message view to reply to messages.
   6. Search bar on HomeScreen implementing Full Text Search.
-  7. 
+  7. Backup button on Homescreen to backup all sms to Google Drive.
