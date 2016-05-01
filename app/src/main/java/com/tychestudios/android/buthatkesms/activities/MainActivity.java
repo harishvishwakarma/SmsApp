@@ -41,8 +41,9 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     ListView contactMessageList;
-    static List<Message> smsList;
+    public static List<Message> smsList;
     public static boolean checkInbox = true;
+    public ContactMessageAdapter customMessageAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,7 +134,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
         contactMessageList = (ListView) findViewById(R.id.listView);
-        contactMessageList.setAdapter(new ContactMessageAdapter(this,contacts,contactMessages));
+        customMessageAdapter = new ContactMessageAdapter(this,contacts,contactMessages);
+        contactMessageList.setAdapter(customMessageAdapter);
 
     }
 
@@ -180,11 +182,26 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        // Retrieve the SearchView and plug it into SearchManager
         final SearchView searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.action_search));
         SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                getListAdapter().getFilter().filter(newText);
+                return true;
+            }
+        });
         return true;
+    }
+
+    private ContactMessageAdapter getListAdapter(){
+        return customMessageAdapter;
     }
 
     @Override
