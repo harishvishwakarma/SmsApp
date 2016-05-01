@@ -1,13 +1,13 @@
 package com.tychestudios.android.buthatkesms.model;
 
-import java.security.Timestamp;
+import java.util.Date;
 
 /**
  * Created by Harish Vishwakarma on 4/26/2016.
  */
 public class Message {
     private String smsBody;
-    private Timestamp time;
+    private Date time;
     private String smsFrom;
 
     public String getSmsBody() {
@@ -18,11 +18,11 @@ public class Message {
         this.smsBody = smsBody;
     }
 
-    public Timestamp getTime() {
+    public Date getTime() {
         return time;
     }
 
-    public void setTime(Timestamp time) {
+    public void setTime(Date time) {
         this.time = time;
     }
 
