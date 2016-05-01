@@ -34,7 +34,11 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".activities.SmsActivity"></activity>
+        <activity android:name=".activities.SmsActivity">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".activities.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

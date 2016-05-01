@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.tychestudios.android.buthatkesms.R;
@@ -63,7 +62,7 @@ public class ContactMessageAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         // TODO Auto-generated method stub
-        Holder holder=new Holder();
+        final Holder holder=new Holder();
         View rowView;
         rowView = inflater.inflate(R.layout.contactlistrow, null);
         holder.tv=(TextView) rowView.findViewById(R.id.contactNumber);
@@ -73,9 +72,9 @@ public class ContactMessageAdapter extends BaseAdapter {
         rowView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "You Clicked "+contactlist.get(position), Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(context, SmsActivity.class);
                 intent.putExtra("Messages",new Gson().toJson(contactMessages.get(contactlist.get(position))));
+                intent.putExtra("Contact",holder.tv.getText().toString());
                 context.startActivity(intent);
             }
         });
